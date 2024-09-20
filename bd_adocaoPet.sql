@@ -92,6 +92,34 @@ LOCK TABLES `tb_adotante` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `tb_agendoacao`
+--
+
+DROP TABLE IF EXISTS `tb_agendoacao`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `tb_agendoacao` (
+  `id_agendoacao` int NOT NULL,
+  `data_agendoacao` date NOT NULL,
+  `desc_agendoacao` varchar(350) DEFAULT NULL,
+  `endereco_agendoacao` varchar(100) DEFAULT NULL,
+  `id_user` int NOT NULL,
+  PRIMARY KEY (`id_agendoacao`),
+  KEY `fk_agendoacao_user` (`id_user`),
+  CONSTRAINT `fk_agendoacao_user` FOREIGN KEY (`id_user`) REFERENCES `tb_user` (`id_user`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tb_agendoacao`
+--
+
+LOCK TABLES `tb_agendoacao` WRITE;
+/*!40000 ALTER TABLE `tb_agendoacao` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tb_agendoacao` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `tb_animais`
 --
 
@@ -536,4 +564,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-09-18  7:21:08
+-- Dump completed on 2024-09-20 16:03:06

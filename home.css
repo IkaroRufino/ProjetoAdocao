@@ -186,6 +186,7 @@ header .navegation li a{
     width: 90%;
     max-width: 1200px;
     margin: 0 auto;
+    flex:1;
 }
 .hero {
     background-color: #fff;
