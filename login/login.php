@@ -1,19 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+include_once('../config/conexao.php');
+//quando apertar o botão de criar conta: (lembrar de mudar esse submit depois)
+if(isset($_POST['submit']))
+    {
+        $nome = $_POST['nomeC'];
+        $email = $_POST['emailC'];
+        $senha = $_POST['senha'];
+        //escrever a query depois
+        $result = 
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="stylesheet" href="login.css">
-    <title>Página de adoção</title>
-</head>
-
-<body>
-
-    <div class="container" id="container">
+        //recarregar a pagina após enviar os dados
+    }
+?>
+<div class="container" id="container">
         <div class="form-container sign-up">
-            <form>
+            <form action="" method="POST">
                 <h1>Crie uma conta</h1>
                 <div class="social-icons">
                     <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
@@ -22,14 +23,52 @@
                     <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
                 </div>
                 <span>ou use seu e-mail para cadastro</span>
-                <input type="text" placeholder="Nome">
-                <input type="email" placeholder="Email">
-                <input type="password" placeholder="Senha">
+                <input type="text" name="nomeC" placeholder="Nome">
+                <input type="email" name="emailC" placeholder="Email">
+                <input type="password" name="senhaC" placeholder="Senha">
                 <button>inscreva-se</button>
             </form>
         </div>
+        <?php
+        if(isset($_POST['emailL']) || isset($_POST['senhaL'])) {
+
+            if(strlen($_POST['emailL']) == 0) {
+                echo "Preencha seu e-mail";
+            } else if(strlen($_POST['senhaL']) == 0) {
+                echo "Preencha sua senha";
+            } else {
+
+                $email = $conect->real_escape_string($_POST['emailL']);
+                $senha = $conect->real_escape_string($_POST['senhaL']);
+
+                $sql_code = "SELECT * FROM tb_user WHERE email_user = '$email' AND senha_user = '$senha'";
+                $sql_query = $conect->query($sql_code) or die("Falha na execução do código SQL: " . $mysqli->error);
+
+                $quantidade = $sql_query->num_rows;
+
+                if($quantidade == 1) {
+            
+                    $usuario = $sql_query->fetch_assoc();
+
+                    if(!isset($_SESSION)) {
+                        session_start();
+                    }
+
+                    $_SESSION['id'] = $usuario['id'];
+                    $_SESSION['nome'] = $usuario['nome'];
+
+                    header("Location: ../paginas/home.php");
+
+                } else {
+                    echo "Falha ao logar! E-mail ou senha incorretos";
+                }
+
+            }
+
+        }
+        ?>
         <div class="form-container sign-in">
-            <form>
+            <form action="" method="POST">
                 <h1>Entrar</h1>
                 <div class="social-icons">
                     <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
@@ -38,10 +77,10 @@
                     <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
                 </div>
                 <span>ou use sua senha de e-mail</span>
-                <input type="email" placeholder="Email">
-                <input type="password" placeholder="Senha">
+                <input type="email" name="emailL" placeholder="Email">
+                <input type="password" name="senhaL" placeholder="Senha">
                 <a href="#">Esqueceu sua senha?</a>
-                <button>Entrar</button>
+                <button type="submit" name="botao">Entrar</button>
             </form>
         </div>
         <div class="toggle-container">

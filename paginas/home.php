@@ -14,6 +14,8 @@ $paginas = [
     'proprietario' => 'conteudo/proprietario.php',
     'doar' => 'conteudo/doar.php',
     'contatos' => 'conteudo/contato.php',
+    'login' => '../login/login.php',
+    'listagemdoacoes' => 'conteudo/listagemdoacoes.php',
 ];
 
 $pagina_incluir = isset($paginas[$acao]) ? $paginas[$acao] : $paginas['bemvindo'];
