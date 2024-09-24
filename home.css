@@ -181,8 +181,8 @@ header .navegation li a{
 .tra {
     list-style-type: disc; /* Define o tipo de marcador da lista */
     margin-left: 20px; /* Adiciona espaço à esquerda da lista */
-}
-.container {
+    }
+.containerAdocao {
     width: 90%;
     max-width: 1200px;
     margin: 0 auto;

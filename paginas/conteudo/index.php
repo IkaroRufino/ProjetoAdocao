@@ -1,4 +1,5 @@
     <section class="conteudo">
+
         <div class="content">
             <div class="text">
                 <h2>ADOTE UM <br><span>AMIGO</span></h2>
@@ -6,14 +7,20 @@
                 <a href="../paginas/home.php?acao=login">LOGIN</a>
             </div>
         </div>
-        <ul class="icons">
-            <li><a href="#"><img src="../img/facebook.png" alt=""></a></li>
-            <li><a href="#"><img src="../img/twitter.png" alt=""></a></li>
-            <li><a href="#"><img src="../img/instagram.png" alt=""></a></li>
-        </ul>
+
+        <div class="redes_sociais">
+            <ul class="icons">
+                <li><a href="#"><img src="../img/facebook.png" alt=""></a></li>
+                <li><a href="#"><img src="../img/twitter.png" alt=""></a></li>
+                <li><a href="#"><img src="../img/instagram.png" alt=""></a></li>
+            </ul>
+        </div>
+        
         <div class="boxImg1">
             <img src="../img/animal.png" alt="">
             
         </div>
+
         <div class="circle"></div>
+        
     </section>

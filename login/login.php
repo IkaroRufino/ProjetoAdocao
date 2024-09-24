@@ -1,16 +1,16 @@
 <?php
 include_once('../config/conexao.php');
-//quando apertar o botão de criar conta: (lembrar de mudar esse submit depois)
-if(isset($_POST['submit']))
-    {
-        $nome = $_POST['nomeC'];
-        $email = $_POST['emailC'];
-        $senha = $_POST['senha'];
-        //escrever a query depois
-        $result = 
-
-        //recarregar a pagina após enviar os dados
-    }
+////quando apertar o botão de criar conta: (lembrar de mudar esse submit depois)
+//if(isset($_POST['submit']))
+//    {
+//        $nome = $_POST['nomeC'];
+//        $email = $_POST['emailC'];
+//        $senha = $_POST['senha'];
+//        //escrever a query depois
+//        $result = 
+//
+//        //recarregar a pagina após enviar os dados
+//    }
 ?>
 <div class="container" id="container">
         <div class="form-container sign-up">
@@ -30,42 +30,42 @@ if(isset($_POST['submit']))
             </form>
         </div>
         <?php
-        if(isset($_POST['emailL']) || isset($_POST['senhaL'])) {
-
-            if(strlen($_POST['emailL']) == 0) {
-                echo "Preencha seu e-mail";
-            } else if(strlen($_POST['senhaL']) == 0) {
-                echo "Preencha sua senha";
-            } else {
-
-                $email = $conect->real_escape_string($_POST['emailL']);
-                $senha = $conect->real_escape_string($_POST['senhaL']);
-
-                $sql_code = "SELECT * FROM tb_user WHERE email_user = '$email' AND senha_user = '$senha'";
-                $sql_query = $conect->query($sql_code) or die("Falha na execução do código SQL: " . $mysqli->error);
-
-                $quantidade = $sql_query->num_rows;
-
-                if($quantidade == 1) {
-            
-                    $usuario = $sql_query->fetch_assoc();
-
-                    if(!isset($_SESSION)) {
-                        session_start();
-                    }
-
-                    $_SESSION['id'] = $usuario['id'];
-                    $_SESSION['nome'] = $usuario['nome'];
-
-                    header("Location: ../paginas/home.php");
-
-                } else {
-                    echo "Falha ao logar! E-mail ou senha incorretos";
-                }
-
-            }
-
-        }
+//        if(isset($_POST['emailL']) || isset($_POST['senhaL'])) {
+//
+//            if(strlen($_POST['emailL']) == 0) {
+//                echo "Preencha seu e-mail";
+//            } else if(strlen($_POST['senhaL']) == 0) {
+//                echo "Preencha sua senha";
+//            } else {
+//
+//                $email = $conect->real_escape_string($_POST['emailL']);
+//                $senha = $conect->real_escape_string($_POST['senhaL']);
+//
+//                $sql_code = "SELECT * FROM tb_user WHERE email_user = '$email' AND senha_user = '$senha'";
+//                $sql_query = $conect->query($sql_code) or die("Falha na execução do código SQL: " . $mysqli->error);
+//
+//                $quantidade = $sql_query->num_rows;
+//
+//                if($quantidade == 1) {
+//            
+//                    $usuario = $sql_query->fetch_assoc();
+//
+//                    if(!isset($_SESSION)) {
+//                        session_start();
+//                    }
+//
+//                    $_SESSION['id'] = $usuario['id'];
+//                    $_SESSION['nome'] = $usuario['nome'];
+//
+//                    header("Location: ../paginas/home.php");
+//
+//                } else {
+//                    echo "Falha ao logar! E-mail ou senha incorretos";
+//                }
+//
+//            }
+//
+//        }
         ?>
         <div class="form-container sign-in">
             <form action="" method="POST">
@@ -99,7 +99,7 @@ if(isset($_POST['submit']))
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="../login/script.js"></script>
 </body>
 
 </html>

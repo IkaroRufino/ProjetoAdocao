@@ -1,12 +1,12 @@
     <main>
         <section id="home" class="hero">
-            <div class="container">
+            <div class="containerAdocao">
                 <h2>Encontre Seu Novo Melhor Amigo!</h2>
                 <p>Estamos aqui para ajudar você a encontrar o animal de estimação perfeito. Navegue pela nossa galeria e entre em contato para mais informações.</p>
             </div>
         </section>
         <section id="gallery" class="animal-gallery">
-            <div class="container">
+            <div class="containerAdocao">
                 <h2>Animais Disponíveis para Adoção</h2>
                 <div class="animal-item">
                     <img src="../img/gato1.jpeg" alt="Animal 1">
