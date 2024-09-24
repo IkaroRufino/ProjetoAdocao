@@ -12,6 +12,7 @@ include_once('../config/conexao.php');
 //        //recarregar a pagina após enviar os dados
 //    }
 ?>
+<div class="loginpage">
 <div class="container" id="container">
         <div class="form-container sign-up">
             <form action="" method="POST">
@@ -98,8 +99,5 @@ include_once('../config/conexao.php');
             </div>
         </div>
     </div>
-
+</div>
     <script src="../login/script.js"></script>
-</body>
-
-</html>

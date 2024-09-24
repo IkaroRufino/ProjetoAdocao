@@ -6,12 +6,11 @@
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
-/*estilização_paginas.php*/
-/*index.php*/
-/*ajudar.php*/
-/*adocao.php*/
-/*contato.php*/
-/*login.php*/
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Garante que o body tenha no mínimo a altura da tela */
+}
 .conteudo{
     position: relative;
     width: 100%;
@@ -22,6 +21,7 @@
     align-items: center;
     background: #fff;
     overflow: hidden;
+    flex:1
 }
 .circle{
     position: absolute;
@@ -69,6 +69,7 @@ header .navegation li a{
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex: 1;
 }
 .content .text{
     position: relative;
@@ -274,6 +275,9 @@ footer {
     text-align: center;
     padding: 10px 0;
     position: relative;
+    bottom: 0;
+    width: 100%;
+    margin-top: auto;
 }
 
 footer p {

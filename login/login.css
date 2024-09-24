@@ -7,14 +7,14 @@
     font-family: 'Montserrat', sans-serif;
 }
 
-body{
+.loginpage{
     background-color: #F08080;
     background: linear-gradient(to right, #fdf5f5, #e4dcdc);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    height: 100vh;
+    min-height: 81vh ;
 }
 
 .container{
