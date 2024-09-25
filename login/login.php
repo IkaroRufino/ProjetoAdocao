@@ -105,12 +105,12 @@
             $result->bindParam(':nome', $nome, PDO::PARAM_STR);
             $result->bindParam(':email', $email, PDO::PARAM_STR);
             $result->bindParam(':senha', $senha, PDO::PARAM_STR);
-    //        $result->bindParam(':foto', $novoNome, PDO::PARAM_STR);
+    //      $result->bindParam(':foto', $novoNome, PDO::PARAM_STR);
             $result->execute();
             $contar = $result->rowCount();
         
             if ($contar > 0) {
-                echo '<div class="container">
+                echo '<div class="aviso">
                         <div class="alert alert-success alert-dismissible">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                             <h5><i class="icon fas fa-check"></i> OK!</h5>
@@ -118,7 +118,7 @@
                         </div>
                     </div>';
             } else {
-                echo '<div class="container">
+                echo '<div class="aviso">
                         <div class="alert alert-danger alert-dismissible">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                             <h5><i class="icon fas fa-check"></i> Erro!</h5>
@@ -129,7 +129,7 @@
         } catch (PDOException $e) {
             // Loga a mensagem de erro em vez de exibi-la para o usuário
             error_log("ERRO DE PDO: " . $e->getMessage());
-            echo '<div class="container">
+            echo '<div class="aviso">
                     <div class="alert alert-danger alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <h5><i class="icon fas fa-exclamation-triangle"></i> Erro!</h5>
@@ -140,77 +140,60 @@
     }
     ?>
     <?php
-        // Exibir mensagens com base na ação
-        if (isset($_GET['acao'])) {
-            $acao = $_GET['acao'];
-            if ($acao == 'negado') {
-                echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">×</button>
-                <strong>Erro ao Acessar o sistema!</strong> Efetue o login ;(</div>';
-               
-            } elseif ($acao == 'sair') {
-                echo '<div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert">×</button>
-                <strong>Você acabou de sair da Agenda Eletrônica!</strong> :(</div>';
-               
-            }
-        }
-        
-        // Processar o formulário de login
-        if (isset($_POST['emailL']) || isset($_POST['senhaL'])) {
-            $login = filter_input(INPUT_POST, 'emailL', FILTER_SANITIZE_EMAIL);
-            $senha = filter_input(INPUT_POST, 'senhaL', FILTER_DEFAULT);
-        
-            if ($login && $senha) {
-                $select = "SELECT * FROM tb_user WHERE email_user = :emailLogin";
-        
-                try {
-                    $resultLogin = $conect->prepare($select);
-                    $resultLogin->bindParam(':emailLogin', $login, PDO::PARAM_STR);
-                    $resultLogin->execute();
-        
-                    $verificar = $resultLogin->rowCount();
-                    if ($verificar > 0) {
-                        $user = $resultLogin->fetch(PDO::FETCH_ASSOC);
-        
-                        // Verifica a senha
-                        if (password_verify($senha, $user['senha_user'])) {
-                            // Criar sessão
-                            $_SESSION['loginUser'] = $login;
-                            $_SESSION['senhaUser'] = $user['id_user'];
-        
-                            echo '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">×</button>
-                            <strong>Logado com sucesso!</strong> Você será redirecionado para a agenda :)</div>';
-        
-                            header("Refresh: 5; url=home.php?acao=bemvindo");
-                        } else {
-                            echo '<div class="alert alert-danger">
-                            <button type="button" class="close" data-dismiss="alert">×</button>
-                            <strong>Erro!</strong> Senha incorreta, tente novamente.</div>';
-                            header("Refresh: 5; url=home.php?acao=login");
-                        }
-                    } else {
-                        echo '<div class="alert alert-danger">
-                        <button type="button" class="close" data-dismiss="alert">×</button>
-                        <strong>Erro!</strong> E-mail não encontrado, verifique seu login ou faça o cadastro.</div>';
-                        header("Refresh: 5; url=home.php?acao=login");
-                    }
-                } catch (PDOException $e) {
-                    // Log the error instead of displaying it to the user
-                    error_log("ERRO DE LOGIN DO PDO: " . $e->getMessage());
-                    echo '<div class="alert alert-danger">
-                    <button type="button" class="close" data-dismiss="alert">×</button>
-                    <strong>Erro!</strong> Ocorreu um erro ao tentar fazer login. Por favor, tente novamente mais tarde.</div>';
+// Iniciar a sessão no início de todos os arquivos onde ela é necessária
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Verifica se o formulário de login foi enviado
+if (isset($_POST['emailL']) && isset($_POST['senhaL'])) {
+    $login = filter_input(INPUT_POST, 'emailL', FILTER_SANITIZE_EMAIL);
+    $senha = filter_input(INPUT_POST, 'senhaL', FILTER_DEFAULT);
+
+    if ($login && $senha) {
+        $select = "SELECT * FROM tb_user WHERE email_user = :emailLogin";
+
+        try {
+            $resultLogin = $conect->prepare($select);
+            $resultLogin->bindParam(':emailLogin', $login, PDO::PARAM_STR);
+            $resultLogin->execute();
+
+            $verificar = $resultLogin->rowCount();
+            if ($verificar > 0) {
+                $user = $resultLogin->fetch(PDO::FETCH_ASSOC);
+
+                // Verifica a senha
+                if (password_verify($senha, $user['senha_user'])) {
+                    // Criar sessão com as informações do usuário
+                    $_SESSION['loginUser'] = $login;
+                    $_SESSION['id_user'] = $user['id_user']; // Armazenando o ID do usuário
+
+                    // Redirecionar para a página inicial após login bem-sucedido
+                    header("Location: home.php?acao=bemvindo");
+                    exit;
+                } else {
+                    // Redirecionar em caso de senha incorreta
+                    header("Location: login.php?acao=login&erro=senha_incorreta");
+                    exit;
                 }
             } else {
-                echo '<div class="alert alert-danger">
-                <button type="button" class="close" data-dismiss="alert">×</button>
-                <strong>Erro!</strong> Todos os campos são obrigatórios.</div>';
+                // Redirecionar em caso de e-mail não encontrado
+                header("Location: login.php?acao=login&erro=email_nao_encontrado");
+                exit;
             }
+        } catch (PDOException $e) {
+            error_log("ERRO DE LOGIN DO PDO: " . $e->getMessage());
+            header("Location: login.php?acao=login&erro=erro_login");
+            exit;
         }
-  
-  if(isset($_REQUEST['sair'])){
-    session_destroy();
-    header("Location: ../index.php?acao=sair");
-  }
-        ?>
+    } else {
+        // Redirecionar caso os campos não estejam preenchidos
+        header("Location: login.php?acao=login&erro=campos_obrigatorios");
+        exit;
+    }
+}
+?>
+
+
 </div>
     <script src="../login/script.js"></script>

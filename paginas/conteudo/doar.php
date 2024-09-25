@@ -1,27 +1,23 @@
 <?php
-//// Inicia o buffer de saída
-//ob_start();
-//
-//// Inicia a sessão apenas se ainda não tiver sido iniciada
-//if (session_status() == PHP_SESSION_NONE) {
-//    session_start();
-//}
-//
-//// Verifica se as variáveis de sessão estão definidas
-//if (!isset($_SESSION['id'])) {
-//    // Redireciona para a página inicial com a mensagem de acesso negado
-//    header("Location: ../login/login.php");
-//    exit;
-//}
-//
-// Inclui o script de saída
-//include_once('sair.php');
+// Iniciar a sessão no início do arquivo
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
+// Verifica se o usuário está logado
+if (!isset($_SESSION['loginUser'])) {
+    header("Location: home.php?acao=login");
+    exit;
+}
+
+// Captura o ID do usuário da sessão
+$id_usuario = $_SESSION['id_user'];
+
+// Processar o formulário de agendamento
 if (isset($_POST['botao'])) {
     $endereco = $_POST['address'] ?? null;
     $data = $_POST['date'] ?? null;
     $descricao = $_POST['description'] ?? null;
-    $id_usuario = $_POST['id_user'] ?? $_SESSION['id']; // Pegue o id do usuário da sessão
 
     if (empty($data)) {
         echo "O campo de data não pode estar vazio.";
@@ -47,6 +43,7 @@ if (isset($_POST['botao'])) {
     }
 }
 ?>
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -55,7 +52,7 @@ if (isset($_POST['botao'])) {
             margin: 0;
             padding: 0;
         }
-        .container {
+        .containerDoar {
             width: 80%;
             margin: 0 auto;
             padding: 20px;
@@ -92,7 +89,7 @@ if (isset($_POST['botao'])) {
             color: white;
         }
     </style>
-    <div class="container">
+    <div class="containerDoar">
         <h1>Agendamento de Doações</h1>
         <form method="POST" action="">
 
