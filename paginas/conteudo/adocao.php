@@ -1,12 +1,13 @@
 <section class="conteudo">
-        <div class="content">
+        <div class="contentadocao">
             <div class="text">
                 <h2><br><span>Encontre seu novo amigo</span></h2>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis repellat illo molestiae quae nam nihil. Qui debitis animi voluptatibus vero maxime ratione ex libero tempore amet sint laudantium, dicta atque.</p>
                 
                 <section id="gallery" class="animal-gallery">
+                <h2>Animais Disponíveis para Adoção</h2>
     <div class="containerAdocao">
-        <h2>Animais Disponíveis para Adoção</h2>
+        
         <div class="animal-item">
             <img src="../img/gato1.jpeg" alt="Animal 1">
             <h3>Pipoca</h3>
@@ -50,10 +51,11 @@
             <button class="adopt-button">Adotar</button>
         </div>
 
-        <div class="offer-pet">
+        
+    </div>
+    <div class="offer-pet">
             <h3>Tem um animal para adoção?</h3>
             <p>Se você deseja oferecer um animal para adoção, clique no botão abaixo:</p>
             <a href="home.php?acao=animais" class="offer-button">Cadastrar Animal</a>
         </div>
-    </div>
 </section>

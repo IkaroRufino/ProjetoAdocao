@@ -1,6 +1,6 @@
 <section class="conteudo">
         <div class="circle"></div>
-        <div class="content">
+        <div class="contentAJUDAR">
             <div class="text">
                 <h2><br><span>Transforme a vida de um pet hoje!</span></h2>
                 <p>Doe recursos, adote um amigo peludo, ofereça seu tempo como voluntário ou contribua com itens essenciais. Seu apoio faz toda a diferença!

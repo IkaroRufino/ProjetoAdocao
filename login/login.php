@@ -49,7 +49,7 @@
             </div>
         </div>
     </div>
-    <?php
+<?php
     include_once('../config/conexao.php');
     // Verifica se o formulário foi enviado
     if (isset($_POST['botaoCadastro'])) {
@@ -139,7 +139,7 @@
         }
     }
     ?>
-    <?php
+<?php
 // Iniciar a sessão no início de todos os arquivos onde ela é necessária
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
