@@ -182,12 +182,6 @@ header .navegation li a{
 .tra {
     list-style-type: disc; /* Define o tipo de marcador da lista */
     margin-left: 20px; /* Adiciona espaço à esquerda da lista */
-    }
-.containerAdocao {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-    flex:1;
 }
 .hero {
     background-color: #fff;
@@ -200,8 +194,9 @@ header .navegation li a{
     color: #F08080;
 }
 
+
 .animal-gallery {
-    background-color: #fff;
+    background-color: #ffffff;
     padding: 40px 0;
 }
 
@@ -211,14 +206,17 @@ header .navegation li a{
     margin-bottom: 20px;
 }
 
+
+
 .animal-item {
     border: 2px solid #F08080;
+    background-color: #F08080;
     border-radius: 10px;
     margin: 20px;
     padding: 15px;
     text-align: center;
     display: inline-block;
-    width: calc(33% - 40px);
+    width: calc(40% - 10px);
     box-sizing: border-box;
 }
 
@@ -226,6 +224,39 @@ header .navegation li a{
     border-radius: 10px;
     width: 100%;
     height: auto;
+}
+
+.adopt-button {
+    background-color: #e07070; 
+    color: white; 
+    border: none; 
+    border-radius: 5px;
+    padding: 10px 20px; 
+    cursor: pointer; 
+    margin-top: 10px;
+}
+
+.offer-pet {
+    text-align: center;
+    margin-top: 40px;
+    padding: 20px;
+    border: 2px solid #F08080;
+    border-radius: 10px;
+    background-color: #FFF0F5; /* Cor de fundo suave */
+}
+
+.offer-button {
+    background-color: #FF7F50; /* Cor de fundo */
+    color: white; /* Cor do texto */
+    border: none; /* Sem borda */
+    border-radius: 5px; /* Bordas arredondadas */
+    padding: 10px 20px; /* Espaçamento interno */
+    cursor: pointer; /* Cursor em forma de mão ao passar o mouse */
+    margin-top: 10px; /* Espaço acima do botão */
+}
+
+.offer-button:hover {
+    background-color: #FF6347; /* Cor ao passar o mouse */
 }
 
 .contact {
@@ -236,11 +267,6 @@ header .navegation li a{
 .contact h2 {
     text-align: center;
     color: #F08080;
-}
-
-form {
-    max-width: 600px;
-    margin: 0 auto;
 }
 
 form label {
