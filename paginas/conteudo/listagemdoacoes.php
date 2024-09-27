@@ -1,4 +1,4 @@
-<?php
+<?php  
 // Iniciar a sessão no início do arquivo
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
@@ -13,15 +13,15 @@ if (!isset($_SESSION['loginUser'])) {
 // Captura o ID do usuário da sessão
 $id_usuario = $_SESSION['id_user'];
 
-// Definir quantos agendamentos serão mostrados por página (agora 5)
-$limite = 6;
+// Definir quantos agendamentos serão mostrados por página (agora 8)
+$limite = 8;
 
 // Verifica se a página foi definida na URL, caso contrário, usa a página 1
 $pagina = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
 $offset = ($pagina - 1) * $limite;
 
-// Verifica se a ação foi definida na URL (para os redirecionamentos corretos)
-$acao = filter_var(isset($_GET['acao']) ? $_GET['acao'] : 'bemvindo', FILTER_SANITIZE_STRING);
+// Verifica se a ação foi definida na URL (sanitização mais segura)
+$acao = filter_input(INPUT_GET, 'acao', FILTER_SANITIZE_STRING) ?? 'bemvindo';
 
 try {
     // Consulta SQL para contar o total de agendamentos
@@ -32,7 +32,7 @@ try {
     $totalAgendamentos = $stmtTotal->fetchColumn();
 
     // Consulta SQL para buscar agendamentos com paginação (LIMIT e OFFSET)
-    $query = "SELECT a.endereco_agendoacao, a.data_agendoacao, a.desc_agendoacao, u.id_user, u.nome_user 
+    $query = "SELECT a.id_agendoacao, a.endereco_agendoacao, a.data_agendoacao, a.desc_agendoacao, u.id_user, u.nome_user 
               FROM tb_agendoacao a 
               JOIN tb_user u ON a.id_user = u.id_user 
               WHERE a.id_user = :id_user 
@@ -108,6 +108,29 @@ $totalPaginas = ceil($totalAgendamentos / $limite);
     .pagination-container {
         margin-top: 20px;
     }
+    .pagination a.disabled {
+        pointer-events: none;
+        background-color: #f1f1f1;
+        color: #ccc;
+        border: 1px solid #ccc;
+    }
+    .btn {
+        padding: 6px 12px;
+        margin-right: 5px;
+        text-decoration: none;
+        color: #fff;
+        background-color: #5cb85c; /* Verde padrão para "Editar" */
+        border-radius: 4px;
+    }
+    .btn.delete {
+        background-color: #d9534f; /* Vermelho para "Deletar" */
+    }
+    .btn:hover {
+        opacity: 0.9;
+    }
+    .btns{
+        text-align: center;
+    }
 </style>
 
 <div class="container">
@@ -121,6 +144,7 @@ $totalPaginas = ceil($totalAgendamentos / $limite);
                     <th>Endereço</th>
                     <th>Data da Doação</th>
                     <th>Descrição</th>
+                    <th>Ações</th> <!-- Nova coluna para os botões -->
                 </tr>
             </thead>
             <tbody>
@@ -131,6 +155,11 @@ $totalPaginas = ceil($totalAgendamentos / $limite);
                         <td><?php echo htmlspecialchars($agendamento['endereco_agendoacao']); ?></td>
                         <td><?php echo htmlspecialchars($agendamento['data_agendoacao']); ?></td>
                         <td><?php echo htmlspecialchars($agendamento['desc_agendoacao']); ?></td>
+                        <td class="btns">
+                            <!-- Botões de Editar e Deletar -->
+                            <a href="home.php?acao=editardoacoes&id_agendoacao=<?php echo urlencode($agendamento['id_agendoacao']); ?>" class="btn">Editar</a>
+                            <a href="home.php?acao=delete&id_agendoacao=<?php echo urlencode($agendamento['id_agendoacao']); ?>" class="btn delete" onclick="return confirm('Tem certeza que deseja deletar este agendamento?');">Deletar</a>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -143,11 +172,23 @@ $totalPaginas = ceil($totalAgendamentos / $limite);
 <!-- Paginação fora do container -->
 <div class="pagination-container">
     <div class="pagination">
+        <!-- Botão Anterior -->
+        <a href="?acao=<?php echo htmlspecialchars($acao); ?>&pagina=<?php echo max(1, $pagina - 1); ?>" 
+           class="<?php if ($pagina == 1) echo 'disabled'; ?>">
+            Anterior
+        </a>
+
+        <!-- Paginação de números -->
         <?php for ($i = 1; $i <= $totalPaginas; $i++): ?>
             <a href="?acao=<?php echo htmlspecialchars($acao); ?>&pagina=<?php echo $i; ?>" class="<?php if ($i == $pagina) echo 'active'; ?>">
                 <?php echo $i; ?>
             </a>
         <?php endfor; ?>
+
+        <!-- Botão Próximo -->
+        <a href="?acao=<?php echo htmlspecialchars($acao); ?>&pagina=<?php echo min($totalPaginas, $pagina + 1); ?>" 
+           class="<?php if ($pagina == $totalPaginas) echo 'disabled'; ?>">
+            Próximo
+        </a>
     </div>
 </div>
-

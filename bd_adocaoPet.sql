@@ -58,32 +58,20 @@ CREATE TABLE IF NOT EXISTS `tb_agendoacao` (
   PRIMARY KEY (`id_agendoacao`),
   KEY `fk_agendoacao_user` (`id_user`),
   CONSTRAINT `fk_agendoacao_user` FOREIGN KEY (`id_user`) REFERENCES `tb_user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Exportação de dados foi desmarcado.
 
 -- Copiando estrutura para tabela bd_adocaopet.tb_animais
 CREATE TABLE IF NOT EXISTS `tb_animais` (
-  `id_animais` int NOT NULL,
+  `id_animais` int NOT NULL AUTO_INCREMENT,
   `nome_animal` varchar(100) NOT NULL,
   `especie_animal` varchar(100) NOT NULL,
   `raca_animal` varchar(90) NOT NULL,
   `sexo_animal` enum('M','F') NOT NULL,
   `data_nascimento` date DEFAULT NULL,
-  `id_doador` int DEFAULT NULL,
-  `id_doacao` int DEFAULT NULL,
-  `id_adocao` int DEFAULT NULL,
-  `id_adotante` int DEFAULT NULL,
-  PRIMARY KEY (`id_animais`),
-  KEY `fk_animaldoador` (`id_doador`),
-  KEY `fk_animaldoacao` (`id_doacao`),
-  KEY `fk_animaladocao` (`id_adocao`),
-  KEY `fk_animaladotante` (`id_adotante`),
-  CONSTRAINT `fk_animaladocao` FOREIGN KEY (`id_adocao`) REFERENCES `tb_adocao` (`id_adocao`),
-  CONSTRAINT `fk_animaladotante` FOREIGN KEY (`id_adotante`) REFERENCES `tb_adotante` (`id_adotante`),
-  CONSTRAINT `fk_animaldoacao` FOREIGN KEY (`id_doacao`) REFERENCES `tb_doacao` (`id_doacao`),
-  CONSTRAINT `fk_animaldoador` FOREIGN KEY (`id_doador`) REFERENCES `tb_doador` (`id_doador`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+  PRIMARY KEY (`id_animais`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
 
 -- Exportação de dados foi desmarcado.
 

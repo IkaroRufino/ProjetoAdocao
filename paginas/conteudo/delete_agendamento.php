@@ -11,20 +11,21 @@ if (!isset($_SESSION['loginUser'])) {
 }
 
 // Verifica se o ID do agendamento foi passado via GET
-if (isset($_GET['id_animais'])) {
-    $id_animais = (int) $_GET['id_animais'];
+if (isset($_GET['id_agendoacao'])) {
+    $id_agendamento = (int) $_GET['id_agendoacao'];
 
+    // Conexão ao banco de dados (substitua pela sua conexão)
     try {
 
         // Consulta para deletar o agendamento
-        $query = "DELETE FROM tb_animais WHERE id_animais = :id_animais";
+        $query = "DELETE FROM tb_agendoacao WHERE id_agendoacao = :id_agendamento";
         $stmt = $conect->prepare($query);
-        $stmt->bindParam(':id_animais', $id_animais, PDO::PARAM_INT);
+        $stmt->bindParam(':id_agendamento', $id_agendamento, PDO::PARAM_INT);
 
         // Executar a consulta
         if ($stmt->execute()) {
             // Redirecionar para a página de listagem após a exclusão
-            header("Location: home.php?acao=listagem");
+            header("Location: home.php?acao=listagemdoacoes");
             exit;
         } else {
             echo "Erro ao deletar o agendamento.";
