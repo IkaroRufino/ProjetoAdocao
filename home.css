@@ -147,10 +147,9 @@ header .navegation li a{
 }
 .boxImg{
     position: absolute; /* Posiciona o .boxImg em relação ao contêiner .container */
-    top: 600px; /* Ajuste conforme necessário */
-    left: 700px; /* Ajuste conforme necessário */
-    z-index: 2; /* Define um z-index maior para que a imagem fique sobre o círculo */
-    
+    top: 640px; /* Ajuste conforme necessário */
+    left: 1100px; /* Ajuste conforme necessário */
+    z-index: 2; /* Define um z-index maior para que a imagem fique sobre o círculo */    
 }
 
 .boxImg img{
@@ -261,6 +260,9 @@ header .navegation li a{
 .contentadocao .text p{
     color: #000;
 }
+.contentadocao .text .h3txt{
+    color:#da2912;
+}
 .contentadocao .text a{
     display: inline-block;
     margin-top: 50px;
@@ -306,12 +308,14 @@ header .navegation li a{
     text-align: center;
     border-radius: 10px; /* Borda arredondada */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    max-width: 200px;
+    align-self: center;
 }
 
 .animal-item img {
     border-radius: 10px;
     width: 100%;
-    height: auto;
+    height: 150px;
 }
 
 .adopt-button {

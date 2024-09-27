@@ -22,6 +22,8 @@ $paginas = [
     'login' => '../login/login.php',
     'listagemdoacoes' => 'conteudo/listagemdoacoes.php',
     'modificar' => 'conteudo/modificar_agendamento.php',
+    'proprietario' => 'conteudo/proprietario.php',
+
 ];
 
 if ($acao == 'editardoacoes') {

@@ -110,32 +110,15 @@
             $contar = $result->rowCount();
         
             if ($contar > 0) {
-                echo '<div class="aviso">
-                        <div class="alert alert-success alert-dismissible">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            <h5><i class="icon fas fa-check"></i> OK!</h5>
-                            Dados inseridos com sucesso !!!
-                        </div>
-                    </div>';
+                header("Location: home.php?acao=login");
+                exit;
             } else {
-                echo '<div class="aviso">
-                        <div class="alert alert-danger alert-dismissible">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            <h5><i class="icon fas fa-check"></i> Erro!</h5>
-                            Dados não inseridos !!!
-                        </div>
-                    </div>';
+                header("Location: home.php?acao=login&erro=ERROR");
+                exit;
             }
         } catch (PDOException $e) {
             // Loga a mensagem de erro em vez de exibi-la para o usuário
-            error_log("ERRO DE PDO: " . $e->getMessage());
-            echo '<div class="aviso">
-                    <div class="alert alert-danger alert-dismissible">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        <h5><i class="icon fas fa-exclamation-triangle"></i> Erro!</h5>
-                        Ocorreu um erro ao tentar inserir os dados.
-                    </div>
-                </div>';
+            echo("ERRO DE PDO: " . $e->getMessage());
         }
     }
     ?>
