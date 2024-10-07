@@ -23,7 +23,9 @@ $paginas = [
     'listagemdoacoes' => 'conteudo/listagemdoacoes.php',
     'modificar' => 'conteudo/modificar_agendamento.php',
     'proprietario' => 'conteudo/proprietario.php',
-
+    'adote' => 'conteudo/adote.php',
+    'contate' => 'conteudo/contate.php',
+    'listagemadotantes' => 'conteudo/listagemadotantes.php',
 ];
 
 if ($acao == 'editardoacoes') {

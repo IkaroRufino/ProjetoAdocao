@@ -1,0 +1,155 @@
+/*fonte*/
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
+.containerAdote{
+    width: 80%;
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+}
+.info-box p{
+    color: #EDEDE9;
+}
+.info-box{
+    color: #a54444;
+}
+
+
+.form-image{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    background-color: #EDEDE9 ;
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+.form-image img{
+    width: 40rem;
+}
+
+.form{
+    width:50%;
+    min-width: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #e07070;
+    padding: 3rem;
+    border-radius: 20px;
+}
+
+.form-header{
+    margin-bottom: 3rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.login-button{
+    display: flex;
+    align-items: center;
+}
+
+.login-button button{
+    border: none;
+    background: #F08080;
+    padding: 0.4rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.login-button button:hover{
+    background-color: #F08080;
+}
+
+.login-button button a{
+text-decoration: none;
+font-weight: 1000;
+color: #f0ffffde;
+letter-spacing: 2px;
+}
+
+.form-header h1::after{
+    content: '';
+    display: block;
+    width: 5rem;
+    height: 0.3rem;
+    background: #F08080;
+    margin: 0;
+    position: absolute;
+    border-radius: 10px;
+}
+
+.input-group{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 1rem 0;
+}
+
+.input-box{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.1rem;
+}
+
+.input-box input{
+    margin: 0.6rem 0;
+    padding: 0.8rem 1.2rem;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 1px 1px 6px #0000001c;
+}
+
+.input-box input:hover{
+    background-color: #EDEDE9;
+}
+
+.input-box input:focus-visible{
+    outline: 1px solid #EDEDE9;
+}
+
+.input-box label{
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #f0ffffde;
+    
+}
+.input-box input::placeholder{
+    color: #000000be;
+}
+
+.title{
+color:#f0ffffde;
+}
+
+
+@media screen and(max-width:1330px){
+    .form-image{
+        display: none;
+    }
+    .containerAdote{
+        width: 50%;
+    }
+    .form{
+        width: 100;
+    }
+}
+
+@media screen and(max-width: 1064px) {
+    .containerAdote{
+        width: 90%;
+        height: auto;
+    }
+    .input-group{
+        flex-direction: column;
+        overflow-y: scroll;
+        flex-wrap: nowrap;
+        max-height: 10rem;
+        padding-right: 5rem ;
+    }
+}
