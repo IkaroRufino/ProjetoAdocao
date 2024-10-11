@@ -1,22 +1,15 @@
 <?php
-// Start the session
+// Iniciar a sessão
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-// Check if the user is logged in (uncomment this if necessary)
-//if (!isset($_SESSION['loginUser'])) {
-//    header("Location: home.php?acao=login");
-//    exit;
-//}
-
-// Check if 'id_animais' is provided in the URL
+// Verifica se o ID do animal foi passado
 if (isset($_GET['id_animais'])) {
     $id_animais = (int) $_GET['id_animais'];
 
-    // Fetch the animal details from the database
+    // Consulta para buscar os detalhes do animal
     try {
-        // Prepare the SQL query to fetch animal details
         $query = "SELECT nome_animal, especie_animal, raca_animal, sexo_animal, data_nascimento, foto_animal 
                   FROM tb_animais 
                   WHERE id_animais = :id_animais";
@@ -26,14 +19,14 @@ if (isset($_GET['id_animais'])) {
         
         $animal = $stmt->fetch(PDO::FETCH_ASSOC);
         
-        // Check if the animal exists
         if ($animal) {
-            // Calculate the animal's age from its birth date
+            // Calcular a idade do animal
             $data_nascimento = new DateTime($animal['data_nascimento']);
             $idade = $data_nascimento->diff(new DateTime())->y;
 
-            // Store animal details in session
+            // Armazenar os detalhes do animal e o ID do animal na sessão
             $_SESSION['animal'] = $animal;
+            $_SESSION['id_animais'] = $id_animais; // Adicionar o ID do animal na sessão
         } else {
             echo "Animal não encontrado.";
             exit;
@@ -45,7 +38,7 @@ if (isset($_GET['id_animais'])) {
 }
 ?>
 
-<!-- Animal adoption page -->
+<!-- Página de adoção com o formulário de detalhes -->
 <div class="containerAdote">
     <div class="form-image">
         <img src="../img/<?= htmlspecialchars($animal['foto_animal']); ?>" alt="Foto do animal">
@@ -62,7 +55,7 @@ if (isset($_GET['id_animais'])) {
                 </div>
             </div>
 
-            <!-- Display the animal's details dynamically -->
+            <!-- Exibir os detalhes do animal -->
             <div class="info-group">
                 <div class="info-box">
                     <label><strong>Nome:</strong></label>

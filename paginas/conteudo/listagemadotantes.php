@@ -31,7 +31,7 @@ try {
     $totalAdotantes = $stmtTotal->fetchColumn();
 
     // Consulta SQL para buscar adotantes com paginação (LIMIT e OFFSET)
-    $query = "SELECT id_adotante, nome_adotante, email_adotante, endereco_adotante 
+    $query = "SELECT id_adotante, nome_adotante, email_adotante, telefone_adotante, endereco_adotante 
               FROM tb_adotante 
               LIMIT :limite OFFSET :offset";
     
@@ -137,6 +137,7 @@ $totalPaginas = ceil($totalAdotantes / $limite);
                 <tr>
                     <th>ID do Adotante</th>
                     <th>Nome do Adotante</th>
+                    <th>Telefone</th>
                     <th>Email</th>
                     <th>Endereço</th>
                     <th>Ações</th> <!-- Nova coluna para os botões -->
@@ -147,12 +148,13 @@ $totalPaginas = ceil($totalAdotantes / $limite);
                     <tr>
                         <td><?php echo htmlspecialchars($adotante['id_adotante']); ?></td>
                         <td><?php echo htmlspecialchars($adotante['nome_adotante']); ?></td>
+                        <td><?php echo htmlspecialchars($adotante['telefone_adotante']); ?></td>
                         <td><?php echo htmlspecialchars($adotante['email_adotante']); ?></td>
                         <td><?php echo htmlspecialchars($adotante['endereco_adotante']); ?></td>
                         <td class="btns">
                             <!-- Botões de Editar e Deletar -->
-                            <a href="home.php?acao=editaradotantes&id_adotante=<?php echo urlencode($adotante['id_adotante']); ?>" class="btn">Editar</a>
-                            <a href="home.php?acao=delete&id_adotante=<?php echo urlencode($adotante['id_adotante']); ?>" class="btn delete" onclick="return confirm('Tem certeza que deseja deletar este adotante?');">Deletar</a>
+                            <a href="home.php?acao=editadot&id_adotante=<?php echo urlencode($adotante['id_adotante']); ?>" class="btn">Editar</a>
+                            <a href="home.php?acao=deladot&id_adotante=<?php echo urlencode($adotante['id_adotante']); ?>" class="btn delete" onclick="return confirm('Tem certeza que deseja deletar este adotante?');">Deletar</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

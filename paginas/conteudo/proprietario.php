@@ -1,52 +1,57 @@
 <?php
-// Start the session
+// Iniciar a sessão no início do arquivo
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-// Check if the user is logged in (adjust based on your session logic)
-//if (!isset($_SESSION['loginUser'])) {
-    //header("Location: home.php?acao=login");
-    //exit;
-//}
+// Verifica se o usuário está logado
+if (!isset($_SESSION['loginUser'])) {
+    header("Location: home.php?acao=login");
+    exit;
+}
 
-$id_user = $_SESSION['loginUser']; // Assuming this stores the logged-in user's ID
+// Capturar o ID do usuário e do animal da sessão
+$id_user = $_SESSION['loginUser']; // ID do usuário logado
+$id_animais = $_SESSION['id_animais']; // ID do animal que foi selecionado para adoção
 
-// Initialize an empty message variable
+// Inicializar variável de mensagem vazia
 $message = '';
 
-// Check if form is submitted
+// Verificar se o formulário foi enviado
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Collect form data
+    // Coletar dados do formulário
     $nome = trim($_POST['nome']);
     $endereco = trim($_POST['endereco']);
     $telefone = trim($_POST['telefone']);
     $email = trim($_POST['email']);
 
-    // Validate that none of the fields are empty
+    // Validar se todos os campos estão preenchidos
     if (empty($nome) || empty($endereco) || empty($telefone) || empty($email)) {
         $message = "Todos os campos são obrigatórios.";
     } else {
-        // Insert data into the database
+        // Inserir dados na tabela tb_adotante e deletar o animal após o cadastro
         try {
-            // Prepare the SQL query
-            $query = "INSERT INTO tb_adotantes (nome_adotante, endereco_adotante, telefone_adotante, email_adotante, id_user)
-                      VALUES (:nome, :endereco, :telefone, :email, :id_user)";
-            
-            $stmt = $conect->prepare($query);
+            // Inserir adotante no banco de dados
+            $queryAdotante = "INSERT INTO tb_adotante (nome_adotante, endereco_adotante, telefone_adotante, email_adotante, id_user)
+                              VALUES (:nome, :endereco, :telefone, :email, :id_user)";
+            $stmtAdotante = $conect->prepare($queryAdotante);
+            $stmtAdotante->bindParam(':nome', $nome);
+            $stmtAdotante->bindParam(':endereco', $endereco);
+            $stmtAdotante->bindParam(':telefone', $telefone);
+            $stmtAdotante->bindParam(':email', $email);
+            $stmtAdotante->bindParam(':id_user', $id_user, PDO::PARAM_INT);
 
-            // Bind parameters
-            $stmt->bindParam(':nome', $nome);
-            $stmt->bindParam(':endereco', $endereco);
-            $stmt->bindParam(':telefone', $telefone);
-            $stmt->bindParam(':email', $email);
-            $stmt->bindParam(':id_user', $id_user, PDO::PARAM_INT);
+            // Executar a inserção
+            if ($stmtAdotante->execute()) {
+                // Deletar o animal correspondente
+                $queryDeleteAnimal = "DELETE FROM tb_animais WHERE id_animais = :id_animais";
+                $stmtDelete = $conect->prepare($queryDeleteAnimal);
+                $stmtDelete->bindParam(':id_animais', $id_animais, PDO::PARAM_INT);
+                $stmtDelete->execute();
 
-            // Execute the query
-            if ($stmt->execute()) {
-                // Redirect to contact page after successful registration
+                // Redirecionar para a página de contato após o cadastro bem-sucedido
                 header("Location: home.php?acao=contate");
-                exit(); // Ensure no further code is executed
+                exit(); // Garantir que nenhum código adicional seja executado
             } else {
                 $message = "Ocorreu um erro ao tentar cadastrar o adotante.";
             }
@@ -115,30 +120,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             margin-bottom: 20px;
         }
         </style>
-    <div class="containerP">
-        <h1>Cadastro do Proprietário</h1>
+    <!-- Formulário de cadastro com estilos -->
+<div class="containerP">
+    <h1>Cadastro do Proprietário</h1>
 
-        <!-- Display success or error message -->
-        <?php if (!empty($message)): ?>
-            <div class="<?= strpos($message, 'sucesso') !== false ? 'message' : 'error' ?>">
-                <?= htmlspecialchars($message); ?>
-            </div>
-        <?php endif; ?>
+    <!-- Exibir mensagem de sucesso ou erro -->
+    <?php if (!empty($message)): ?>
+        <div class="<?= strpos($message, 'sucesso') !== false ? 'message' : 'error' ?>">
+            <?= htmlspecialchars($message); ?>
+        </div>
+    <?php endif; ?>
 
-        <!-- Registration form -->
-        <form action="" method="post">
-            <label for="nome">Nome:</label>
-            <input type="text" id="nome" name="nome" required><br>
+    <!-- Formulário de cadastro do proprietário -->
+    <form action="" method="post">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required><br>
 
-            <label for="endereco">Endereço:</label>
-            <input type="text" id="endereco" name="endereco" required><br>
+        <label for="endereco">Endereço:</label>
+        <input type="text" id="endereco" name="endereco" required><br>
 
-            <label for="telefone">Telefone:</label>
-            <input type="text" id="telefone" name="telefone" required><br>
+        <label for="telefone">Telefone:</label>
+        <input type="text" id="telefone" name="telefone" required><br>
 
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required><br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br>
 
-            <input type="submit" value="Cadastrar">
-        </form>
-    </div>
+        <input type="submit" value="Cadastrar">
+    </form>
+</div>

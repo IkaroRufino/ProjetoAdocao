@@ -26,6 +26,8 @@ $paginas = [
     'adote' => 'conteudo/adote.php',
     'contate' => 'conteudo/contate.php',
     'listagemadotantes' => 'conteudo/listagemadotantes.php',
+    'deladot' => 'conteudo/deleteadotantes.php',
+    'editadot' => 'conteudo/editadotantes.php',
 ];
 
 if ($acao == 'editardoacoes') {
