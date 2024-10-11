@@ -112,7 +112,7 @@ p {
            <div>
                 <h3>Renata Souza</h3>
                 <p>Front-end</p>
-                <p>Sophia nossa desenvolvedora front end, responsável pela criação e gerenciamento da página "Quero Ajudar". Com um olhar atento para design e usabilidade, ela transformou ideias em uma interface intuitiva, facilitando sugestões de doações e seu recebimento</p>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Hic quae veniam est aspernatur illo dolores, fuga pariatur tempore molestiae sed. Veritatis, rerum. Assumenda adipisci quod deserunt labore aperiam, voluptate quam?</p>
             </div>
         </div>
 

@@ -265,7 +265,6 @@ header .navegation li a{
 }
 .contentadocao .text a{
     display: inline-block;
-    margin-top: 50px;
     padding: 10px 25px;
     background: #F08080;
     color: #fff;
@@ -309,6 +308,7 @@ header .navegation li a{
     border-radius: 10px; /* Borda arredondada */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
     max-width: 200px;
+    max-height: 420px;
     align-self: center;
 }
 
