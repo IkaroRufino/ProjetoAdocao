@@ -13,7 +13,7 @@ $offset = 0;   // Página inicial, pode ser modificado conforme a paginação
 
 try {
     // Consulta SQL para buscar animais incluindo a foto (foto_animal)
-    $query = "SELECT a.nome_animal, a.especie_animal, a.raca_animal, a.sexo_animal, a.data_nascimento, a.foto_animal
+    $query = "SELECT a.id_animais, a.nome_animal, a.especie_animal, a.raca_animal, a.sexo_animal, a.data_nascimento, a.foto_animal
               FROM tb_animais a
               LIMIT :limite OFFSET :offset";
     
@@ -61,7 +61,7 @@ try {
                                     echo $idade . ' anos';
                                     ?>
                                 </p>
-                               <a href="home.php?acao=proprietario"><button class="adopt-button">Adotar</button></a>
+                                <a href="home.php?acao=adote&id_animais=<?php echo urlencode($animal['id_animais']); ?>"><button class="adopt-button">Adotar</button></a>
                             </div>
                         <?php endforeach; ?>
                     <?php else: ?>
